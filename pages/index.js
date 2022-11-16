@@ -11,21 +11,17 @@ import Login from './components/Login'
 import Footer from './components/Footer'
 
 export const getStaticProps = async () => {
-  try {
-    const client = await clientPromise;
-    const db = client.db("Instacats");
+  const client = await clientPromise;
+  const db = client.db("Instacats");
 
-    const posts = await db
-      .collection("posts")
-      .find({})
-      .limit(1000)
-      .toArray();
-    return {
-      props: { posts: JSON.parse(JSON.stringify(posts)) },
-    };
-  } catch (e) {
-    console.error(e);
-  }
+  const posts = await db
+    .collection("posts")
+    .find({})
+    .limit(1000)
+    .toArray();
+  return {
+    props: { posts: JSON.parse(JSON.stringify(posts)) },
+  };
 }
 
 export default function Home({ posts }) {
